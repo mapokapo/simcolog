@@ -1,5 +1,8 @@
 {
   "name": "simlogger",
+  "description": "A simple console logger for Javascript runtimes",
+  "author": "mapokapo<leopetrovic11@gmail.com>",
+  "version": "0.1.0",
   "module": "index.ts",
   "type": "module",
   "devDependencies": {
@@ -16,5 +19,9 @@
   },
   "dependencies": {
     "chalk": "^5.3.0"
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "bun": ">=1.0.0"
   }
 }

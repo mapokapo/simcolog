@@ -1,5 +1,8 @@
 import chalk from "chalk";
 
+/**
+ * A utility type which is a string that represents a log severity (in order of severity: "trace" < "debug" < "info" < "warn" < "error" < "fatal").
+ */
 export type LevelString =
   | "trace"
   | "debug"
@@ -7,6 +10,10 @@ export type LevelString =
   | "warn"
   | "error"
   | "fatal";
+
+/**
+ * Logger severity levels.
+ */
 const levels: LevelString[] = [
   "trace",
   "debug",
@@ -16,22 +23,63 @@ const levels: LevelString[] = [
   "fatal",
 ];
 
+/**
+ * A utility type which represents a function that logs a message.
+ */
+export type LoggerFunction = (message: string, ...rest: string[]) => void;
+
+/**
+ * A utility type which maps log severity levels to functions which should log messages at that severity.
+ */
 export type LoggerLevels = {
-  [level in LevelString]: (message: string, ...rest: string[]) => void;
+  [level in LevelString]: LoggerFunction;
 };
 
+/**
+ * The main logger type.
+ */
 export type Logger = LoggerLevels & {
+  /**
+   * Modify the logger with new options.
+   * @param opts The new options to apply to the logger.
+   * @returns A new logger with the new options.
+   */
   modify: (opts: Partial<LoggerOptions>) => Logger;
-  readonly options: LoggerOptions;
+
+  /**
+   * The current logger options.
+   */
+  options: LoggerOptions;
 };
 
+/**
+ * Logger options.
+ */
 interface LoggerOptions {
+  /**
+   * The current log level. Acts as a filter for which messages should be logged.
+   */
   level: LevelString;
+
+  /**
+   * The prefix to add to each log message. Can be a string or a function which takes the log level and returns a string.
+   */
   prefix: string | ((level: LevelString) => string);
+
+  /**
+   * Whether to include a timestamp in each log message.
+   */
   includeTimestamp: boolean;
+
+  /**
+   * Whether to log to stderr instead of stdout.
+   */
   stderr: boolean;
 }
 
+/**
+ * Sensible default logger options.
+ */
 const defaultOptions: LoggerOptions = {
   level: "info",
   prefix: "",
@@ -39,6 +87,11 @@ const defaultOptions: LoggerOptions = {
   stderr: false,
 };
 
+/**
+ * Create a new logger with the given options.
+ * @param opts The options to create the logger with.
+ * @returns A new logger.
+ */
 const createLogger: (opts: Partial<LoggerOptions>) => Logger = opts => {
   const options = {
     ...defaultOptions,
