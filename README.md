@@ -10,6 +10,12 @@ A simple console logger for Javascript runtimes and the browser.
 npx jsr add @mapokapo/simcolog
 ```
 
+### Deno
+
+```sh
+deno add @mapokapo/simcolog
+```
+
 ### Bun
 
 ```sh
@@ -20,6 +26,8 @@ bunx jsr add @mapokapo/simcolog
 
 ```ts
 import { defaultLogger } from "@mapokapo/simcolog";
+// or in Deno
+import { defaultLogger } from "jsr:@mapokapo/simcolog@^0.1.6";
 
 const logEverything = true;
 

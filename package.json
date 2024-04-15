@@ -2,7 +2,7 @@
   "name": "simlogger",
   "description": "SimCoLog - Simple Console Logger.",
   "author": "mapokapo<leopetrovic11@gmail.com>",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "license": "MIT",
   "module": "mod.ts",
   "files": [
