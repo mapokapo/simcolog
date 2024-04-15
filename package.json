@@ -2,7 +2,7 @@
   "name": "simlogger",
   "description": "SimCoLog - Simple Console Logger.",
   "author": "mapokapo<leopetrovic11@gmail.com>",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "license": "MIT",
   "module": "mod.ts",
   "files": [
@@ -13,10 +13,11 @@
   "type": "module",
   "devDependencies": {
     "@types/bun": "^1.0.12",
-    "@typescript-eslint/eslint-plugin": "latest",
-    "@typescript-eslint/parser": "latest",
-    "eslint": "latest",
+    "@typescript-eslint/eslint-plugin": "^7.6.0",
+    "@typescript-eslint/parser": "^7.6.0",
+    "eslint": "^9.0.0",
     "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-perfectionist": "^2.9.0",
     "prettier": "^3.2.5",
     "typescript": "^5.4.5"
   },
