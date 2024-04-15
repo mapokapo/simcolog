@@ -1,10 +1,10 @@
 # simcolog
 
-A simple console logger for Javascript runtimes and the browser.
+A simple logger for Javascript runtimes and the browser.
 
 ## Installation
 
-### NPM
+### npm
 
 ```sh
 npx jsr add @mapokapo/simcolog
@@ -27,7 +27,7 @@ bunx jsr add @mapokapo/simcolog
 ```ts
 import { defaultLogger } from "@mapokapo/simcolog";
 // or in Deno
-import { defaultLogger } from "jsr:@mapokapo/simcolog@^0.1.9";
+import { defaultLogger } from "jsr:@mapokapo/simcolog@^0.1.10";
 
 const logEverything = true;
 
