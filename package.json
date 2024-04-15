@@ -3,7 +3,13 @@
   "description": "SimCoLog - Simple Console Logger.",
   "author": "mapokapo<leopetrovic11@gmail.com>",
   "version": "0.1.1",
-  "module": "index.ts",
+  "license": "MIT",
+  "module": "mod.ts",
+  "files": [
+    "mod.ts",
+    "LICENSE",
+    "README.md"
+  ],
   "type": "module",
   "devDependencies": {
     "@types/bun": "^1.0.12",
