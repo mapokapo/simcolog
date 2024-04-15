@@ -3,25 +3,12 @@ import chalk from "chalk";
 /**
  * A utility type which is a string that represents a log severity (in order of severity: "trace" < "debug" < "info" < "warn" < "error" < "fatal").
  */
-export type LevelString =
-  | "trace"
-  | "debug"
-  | "info"
-  | "warn"
-  | "error"
-  | "fatal";
+export type LogLevel = "trace" | "debug" | "info" | "warn" | "error" | "fatal";
 
 /**
  * Logger severity levels.
  */
-const levels: LevelString[] = [
-  "trace",
-  "debug",
-  "info",
-  "warn",
-  "error",
-  "fatal",
-];
+const levels: LogLevel[] = ["trace", "debug", "info", "warn", "error", "fatal"];
 
 /**
  * A utility type which represents a function that logs a message.
@@ -31,14 +18,14 @@ export type LoggerFunction = (message: string, ...rest: string[]) => void;
 /**
  * A utility type which maps log severity levels to functions which should log messages at that severity.
  */
-export type LoggerLevels = {
-  [level in LevelString]: LoggerFunction;
+export type LoggerFunctions = {
+  [level in LogLevel]: LoggerFunction;
 };
 
 /**
  * The main logger type.
  */
-export type Logger = LoggerLevels & {
+export type Logger = LoggerFunctions & {
   /**
    * Modify the logger with new options.
    * @param opts The new options to apply to the logger.
@@ -59,12 +46,12 @@ interface LoggerOptions {
   /**
    * The current log level. Acts as a filter for which messages should be logged.
    */
-  level: LevelString;
+  level: LogLevel;
 
   /**
    * The prefix to add to each log message. Can be a string or a function which takes the log level and returns a string.
    */
-  prefix: string | ((level: LevelString) => string);
+  prefix: string | ((level: LogLevel) => string);
 
   /**
    * Whether to include a timestamp in each log message.
@@ -92,7 +79,7 @@ const defaultOptions: LoggerOptions = {
  * @param opts The options to create the logger with.
  * @returns A new logger.
  */
-const createLogger: (opts: Partial<LoggerOptions>) => Logger = opts => {
+export const createLogger: (opts: Partial<LoggerOptions>) => Logger = opts => {
   const options = {
     ...defaultOptions,
     ...opts,
@@ -109,7 +96,7 @@ const createLogger: (opts: Partial<LoggerOptions>) => Logger = opts => {
     modify: (opts: Partial<LoggerOptions>) => modifyLogger(logger, opts),
   } as Logger;
 
-  const shouldLog = (level: LevelString) => {
+  const shouldLog = (level: LogLevel) => {
     return levels.indexOf(level) >= levels.indexOf(options.level);
   };
 
@@ -156,11 +143,20 @@ const createLogger: (opts: Partial<LoggerOptions>) => Logger = opts => {
   return logger;
 };
 
-const modifyLogger = (logger: Logger, opts: Partial<LoggerOptions>): Logger => {
+/**
+ * Modify an existing logger with new options. Note: you can also use the `modify` method on the logger itself, which will return a new logger with the new options.
+ * @param logger The logger to modify.
+ * @param opts The new options to apply to the logger.
+ * @returns A new logger with the new options.
+ */
+export const modifyLogger = (
+  logger: Logger,
+  opts: Partial<LoggerOptions>
+): Logger => {
   return createLogger({ ...logger.options, ...opts });
 };
 
-const defaultLogger: Logger = createLogger({
+export const defaultLogger: Logger = createLogger({
   level: "debug",
   prefix: level => {
     let color: keyof typeof chalk;
@@ -190,5 +186,3 @@ const defaultLogger: Logger = createLogger({
     return `[${chalk[color](level)}]`;
   },
 });
-
-export { defaultLogger, createLogger };

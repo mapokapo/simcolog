@@ -1,6 +1,6 @@
 {
   "$schema": "https://jsr.io/schema/config-file.v1.json",
   "name": "@mapokapo/simcolog",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "exports": "./mod.ts"
 }
