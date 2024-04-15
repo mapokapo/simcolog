@@ -1,6 +1,6 @@
 {
   "name": "simlogger",
-  "description": "A simple console logger for Javascript runtimes",
+  "description": "SimCoLog - Simple Console Logger.",
   "author": "mapokapo<leopetrovic11@gmail.com>",
   "version": "0.1.1",
   "module": "index.ts",

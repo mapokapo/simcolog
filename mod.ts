@@ -97,7 +97,13 @@ const createLogger: (opts: Partial<LoggerOptions>) => Logger = opts => {
     ...defaultOptions,
     ...opts,
   };
-  const stream = options.stderr ? process.stderr : process.stdout;
+  const stream =
+    typeof "process" === "object"
+      ? options.stderr
+        ? process.stderr
+        : process.stdout
+      : null;
+
   const logger = {
     options,
     modify: (opts: Partial<LoggerOptions>) => modifyLogger(logger, opts),
@@ -131,12 +137,18 @@ const createLogger: (opts: Partial<LoggerOptions>) => Logger = opts => {
             .slice(2, 5)}] `
         : "";
 
-      stream.write(
-        `${timestamp + prefix} ${(message + rest.join(" ")).trim()}`
-      );
+      if (stream === null) {
+        console.log(
+          `${timestamp + prefix} ${(message + rest.join(" ")).trim()}`
+        );
+      } else {
+        stream.write(
+          `${timestamp + prefix} ${(message + rest.join(" ")).trim()}`
+        );
 
-      if (!message.endsWith("\n")) {
-        stream.write("\n");
+        if (!message.endsWith("\n")) {
+          stream.write("\n");
+        }
       }
     };
   }
