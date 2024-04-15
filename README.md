@@ -19,7 +19,7 @@ bunx jsr add @mapokapo/simcolog
 ## Usage
 
 ```ts
-import { defaultLogger, type LogLevel } from "@mapokapo/simcolog";
+import { defaultLogger } from "@mapokapo/simcolog";
 
 const logEverything = true;
 
