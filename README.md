@@ -27,7 +27,7 @@ bunx jsr add @mapokapo/simcolog
 ```ts
 import { defaultLogger } from "@mapokapo/simcolog";
 // or in Deno
-import { defaultLogger } from "jsr:@mapokapo/simcolog@^0.1.12";
+import { defaultLogger } from "jsr:@mapokapo/simcolog@^0.1.13";
 
 const logEverything = true;
 

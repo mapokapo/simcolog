@@ -164,6 +164,9 @@ export const modifyLogger = (
   return createLogger({ ...logger.options, ...opts });
 };
 
+/**
+ * A default logger with sensible defaults. Also includes colorized log levels in the prefix using `chalk`.
+ */
 export const defaultLogger: Logger = createLogger({
   level: "debug",
   prefix: level => {
