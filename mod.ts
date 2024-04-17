@@ -65,6 +65,8 @@ interface LoggerOptions {
 
   /**
    * A callback to call when a message is successfully logged. This can be used to store the logs to a file or other destination.
+   * @param message The message that was logged.
+   * @returns void
    */
   logCallback: (message: string) => void;
 }
