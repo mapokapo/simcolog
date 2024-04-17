@@ -27,7 +27,7 @@ bunx jsr add @mapokapo/simcolog
 ```ts
 import { defaultLogger } from "@mapokapo/simcolog";
 // or in Deno
-import { defaultLogger } from "jsr:@mapokapo/simcolog@^0.1.10";
+import { defaultLogger } from "jsr:@mapokapo/simcolog@^0.1.11";
 
 const logEverything = true;
 
@@ -38,11 +38,17 @@ const myLogger = defaultLogger.modify({
 myLogger.info("Hello info!"); // [TIMETAMP] [info] Hello info!
 myLogger.trace("Hello trace!"); // [TIMETAMP] [trace] Hello trace!
 
+let messageHistory: string[] = [];
+
 const newLogger = myLogger.modify({
   includeTimestamp: false,
   level: "info",
+  logCallback: message => messageHistory.push(message),
 });
 
 newLogger.info("Hello info!"); // [info] Hello info!
+newLogger.warn("Hello warn!"); // [warn] Hello warn!
 newLogger.trace("Hello trace!"); // nothing gets printed
+
+newLogger.info(`Message history: ${messageHistory.join(", ")}`); // [info] Hello info!, [warn] Hello warn!
 ```

@@ -62,6 +62,11 @@ interface LoggerOptions {
    * Whether to log to stderr instead of stdout.
    */
   stderr: boolean;
+
+  /**
+   * A callback to call when a message is successfully logged. This can be used to store the logs to a file or other destination.
+   */
+  logCallback: (message: string) => void;
 }
 
 /**
@@ -72,6 +77,7 @@ const defaultOptions: LoggerOptions = {
   prefix: "",
   includeTimestamp: true,
   stderr: false,
+  logCallback: () => {},
 };
 
 /**
@@ -124,19 +130,19 @@ export const createLogger: (opts: Partial<LoggerOptions>) => Logger = opts => {
             .slice(2, 5)}] `
         : "";
 
+      const formattedMessage = `${timestamp + prefix} ${(message + rest.join(" ")).trim()}`;
+
       if (stream === null) {
-        console.log(
-          `${timestamp + prefix} ${(message + rest.join(" ")).trim()}`
-        );
+        console.log(formattedMessage);
       } else {
-        stream.write(
-          `${timestamp + prefix} ${(message + rest.join(" ")).trim()}`
-        );
+        stream.write(formattedMessage);
 
         if (!message.endsWith("\n")) {
           stream.write("\n");
         }
       }
+
+      options.logCallback(formattedMessage);
     };
   }
 
